@@ -1,0 +1,19 @@
+{
+  "name": "BankOCRJS",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R spec"
+  },
+  "readme": "./README.md",
+  "license": "BSD",
+  "description": "Kata BankOCR in JS",
+  "dependencies": {
+    "mocha": "~1.21.4",
+    "should": "~4.0.0"
+  }
+}
