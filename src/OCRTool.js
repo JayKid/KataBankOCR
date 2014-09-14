@@ -12,21 +12,27 @@ var OCRTool = function() {
         return this.account_number;
     }
 
-    this.decode = function(number_string) {
-
-        var number_of_digits = getNumberOfDigitsFrom(number_string);
+    this.decode = function(number_string) 
+    {
+        var number_of_digits = calculateNumberOfDigitsFrom(number_string);
         var digit_index = INITIAL_POSITION;
         while(digit_index < number_of_digits)
         {
-            var scanned_digit = EMPTY_STRING;
-            for(line_number = INITIAL_POSITION; line_number < NUMBER_OF_LINES; ++line_number)
-            {
-                var string_offset = (DIGIT_LENGTH*digit_index)+(line_number*number_of_digits*DIGIT_LENGTH);
-                scanned_digit += number_string.substr(string_offset,DIGIT_LENGTH);
-            }
-            this.account_number += getDigitFromSymbol(scanned_digit);
+            this.extractDigitFrom(number_string,digit_index,number_of_digits);
             ++digit_index;
         }
+    }
+
+    // How can I do this next function private (like var function) but being able to access private things (like this.account_number)?
+    this.extractDigitFrom = function(number_string,digit_index,number_of_digits)
+    {
+        var scanned_digit = EMPTY_STRING;
+        for(line_number = INITIAL_POSITION; line_number < NUMBER_OF_LINES; ++line_number)
+        {
+            var string_offset = (DIGIT_LENGTH*digit_index)+(line_number*number_of_digits*DIGIT_LENGTH);
+            scanned_digit += number_string.substr(string_offset,DIGIT_LENGTH);
+        }
+        this.account_number += getDigitFromSymbol(scanned_digit);
     }
 
     var getDigitFromSymbol = function(symbol)
@@ -47,7 +53,7 @@ var OCRTool = function() {
         return symbol_map[symbol];
     }
 
-    var getNumberOfDigitsFrom = function(number_string)
+    var calculateNumberOfDigitsFrom = function(number_string)
     {
         return (number_string.length / (DIGIT_LENGTH*NUMBER_OF_LINES) );
     }

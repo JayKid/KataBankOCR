@@ -58,4 +58,8 @@ describe( "OCRTool Class", function(){
         });
     });
 
+    describe("Number parser", function(){
+        
+    });
+
 });
